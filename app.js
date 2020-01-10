@@ -53,6 +53,7 @@ function gameSet()
 }
 
 
+// -------------------- Tamura's Part Start ------------------------- //
 //キー入力を受け取る関数
 function typeGame(evt)
 {
@@ -111,3 +112,5 @@ function typeGame(evt)
     }
   }
 }
+
+// -------------------- Tamura's Part End ------------------------- //
