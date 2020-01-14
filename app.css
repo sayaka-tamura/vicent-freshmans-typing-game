@@ -1,8 +1,11 @@
+/** memo: http://photoshopvip.net/79389 */
+
 div#waku
 {
   border:8px double navy;
   width:400px;
   height:300px;
-  font-size:18pt;
+  font-size:16pt;
   overflow:auto;
+  line-height: 1.65rem;
 }

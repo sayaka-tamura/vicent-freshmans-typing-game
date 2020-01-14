@@ -9,13 +9,17 @@
     <link href="./app.css" rel="stylesheet" type="text/css">
     <!-- JS 読み込み -->
     <script type="text/javascript" src="./app.js" charset="UTF-8"></script>
+    <!-- Material Design 読み込み -->
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.indigo-pink.min.css">
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
 
   <body onload="gameSet()">
-    <h1>Vicent 新人研修　Typing Game</h1>
+    <h2>Vicent 新人研修　Typing Game</h2>
     <div id="waku"></div>
     <form>
-      <input type="button" value="問題初期化" onclick="gameSet()"><br>
+      <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="button" value="問題初期化" onclick="gameSet()"><br>
     </form>
   </body>
 </html>
