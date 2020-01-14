@@ -30,30 +30,52 @@ function ransu()
   }
 }
 
+function gameSet(){
+  // 問題文をクリアする
+  var removedTable = document.getElementById('table1');
+  var parentEl = removedTable.parentElement;
+  parentEl.removeChild(removedTable);
+
+  QuestionSet();
+
+}
 
 //タイピングゲームの問題をセットする関数
-function gameSet()
+function QuestionSet()
 {
-  //問題文とカウント数をクリアする
-  mondai="";
+  // カウント数のクリア
   cnt=0;
 
   //乱数作成関数の呼び出し
   ransu();
 
-  //問題文の作成（配列mojiの要素をランダムに200文字繋げる）
-  //mondai= "" + moji[rnd[0]] + moji[rnd[1]] + … + moji[rnd[199]]となる
-  for ( var i = 0 ; i < 200 ; i++)
+  var table=document.createElement('table')
+  table.id = "table1";
+
+  //問題文の作成（配列mojiの要素をランダムに20文字繋げる）
+  var num=0;
+
+  for ( var i = 0 ; i < 1 ; i++)
   {
-    mondai =  mondai + moji[ rnd[i] ];
+    var tr = document.createElement('tr');
+
+    for (var j = 0; j < 20; j++) {
+      mondai =  moji[ rnd[num] ];
+      var td = document.createElement('td');
+      td.textContent = mondai;
+      // td要素をtr要素の子要素に追加
+      tr.appendChild(td);
+      num++;
+    }
+    // tr要素をtable要素の子要素に追加
+    table.appendChild(tr);
   }
 
   //問題枠に表示する
-  document.getElementById("waku").innerHTML = mondai;
+  document.getElementById("waku").appendChild(table);
+
 }
 
-
-// -------------------- Tamura's Part Start ------------------------- //
 //キー入力を受け取る関数
 function typeGame(evt)
 {
@@ -79,10 +101,11 @@ function typeGame(evt)
       typStart = new Date();
     }
 
+    // -------------------- Tamura's Part Start ------------------------- //
     cnt++; //カウント数を＋１にする
 
     //全文字入力したか確認
-    if ( cnt < 200)
+    if ( cnt < 20)
     {
       //問題文の頭の一文字を切り取る
       mondai = mondai.substring(1,mondai.Length);
