@@ -20,16 +20,6 @@ var mondai = "";       //問題の文字列を格納
 var cnt=0;             //何問目か格納
 var typStart,typEnd;   //開始時と終了時の時刻を格納
 
-
-//0～25までの乱数を200個作成して配列rndに格納する関数
-function ransu()
-{
-  for ( var i = 0 ; i < 200 ; i++ )
-  {
-    rnd[i] = Math.floor( Math.random() * 26 );
-  }
-}
-
 function gameSet(){
   // 問題文をクリアする
   var removedTable = document.getElementById('table1');
@@ -49,19 +39,35 @@ function QuestionSet()
   //乱数作成関数の呼び出し
   ransu();
 
-  var table=document.createElement('table')
+  //問題文作成関数の呼び出し
+  var table = makingQuestions();
+
+  //問題枠に表示する
+  document.getElementById("waku").appendChild(table);
+
+}
+
+//0～25までの乱数を20個作成して配列rndに格納する関数
+function ransu()
+{
+  for ( var i = 0 ; i < 20 ; i++ )
+  {
+    rnd[i] = Math.floor( Math.random() * 26 );
+  }
+}
+
+//問題文の作成（配列mojiの要素をランダムに20文字繋げる）
+function makingQuestions() {
+  var table = document.createElement('table');
   table.id = "table1";
 
-  //問題文の作成（配列mojiの要素をランダムに20文字繋げる）
-  var num=0;
-
-  for ( var i = 0 ; i < 1 ; i++)
-  {
+  var num = 0;
+  for (var i = 0; i < 1; i++) {
     var tr = document.createElement('tr');
-
     for (var j = 0; j < 20; j++) {
-      mondai =  moji[ rnd[num] ];
+      mondai = moji[rnd[num]];
       var td = document.createElement('td');
+      td.id = "word"+ num;
       td.textContent = mondai;
       // td要素をtr要素の子要素に追加
       tr.appendChild(td);
@@ -70,10 +76,7 @@ function QuestionSet()
     // tr要素をtable要素の子要素に追加
     table.appendChild(tr);
   }
-
-  //問題枠に表示する
-  document.getElementById("waku").appendChild(table);
-
+  return table;
 }
 
 //キー入力を受け取る関数
@@ -102,18 +105,15 @@ function typeGame(evt)
     }
 
     // -------------------- Tamura's Part Start ------------------------- //
+
+    //入力されたセルの文字色を灰色にする
+    var idName = "word"+cnt;
+    document.getElementById(idName).style.color="red";
+
     cnt++; //カウント数を＋１にする
 
     //全文字入力したか確認
-    if ( cnt < 20)
-    {
-      //問題文の頭の一文字を切り取る
-      mondai = mondai.substring(1,mondai.Length);
-
-      //問題枠に表示する
-      document.getElementById("waku").innerHTML = mondai;
-    }
-    else
+    if ( cnt == 20)
     {
       //全文字入力していたら、終了時間を記録する
       typEnd = new Date();
