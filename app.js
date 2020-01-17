@@ -102,6 +102,20 @@ function typeGame(evt)
     if (cnt==0)
     {
       typStart = new Date();
+
+      //minami Start
+      //最初の1文字が入力された時に経過時間を表示
+      var count = 0;
+      var countup = function(){
+        count++;
+        //表示文作成
+        var displayTime = "経過時間：" + count + "秒";
+        document.getElementById("time").innerHTML = displayTime;
+      } 
+      //処理を1000ミリ秒(1秒)ごと繰り返す
+      timer = setInterval(countup, 1000);
+      //minami End
+
     }
 
     // -------------------- Tamura's Part Start ------------------------- //
@@ -115,6 +129,15 @@ function typeGame(evt)
     //全文字入力したか確認
     if ( cnt == 20)
     {
+      
+      //minami Start
+      //カウント処理を停止
+      clearInterval(timer);
+      //表示文作成
+      var finTime =  "お疲れさまでした(*'▽')";
+      document.getElementById("time").innerHTML = finTime;
+      //minami End
+
       //全文字入力していたら、終了時間を記録する
       typEnd = new Date();
 

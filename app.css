@@ -20,6 +20,12 @@ div#waku
   margin-bottom: 1rem;
 }
 
+div#time
+{
+  text-align: center;
+  font-size:1.5rem;
+}
+
 .initialize-btn{
   text-align: center;
 }
