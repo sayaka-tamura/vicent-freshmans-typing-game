@@ -21,13 +21,11 @@ var cnt=0;             //何問目か格納
 var typStart,typEnd;   //開始時と終了時の時刻を格納
 
 function gameSet(){
-  // 問題文をクリアする
-  var removedTable = document.getElementById('table1');
-  var parentEl = removedTable.parentElement;
-  parentEl.removeChild(removedTable);
+  // メッセージをクリアする
+  document.getElementById('waku').innerHTML="";
 
+  // 問題文をセットする
   QuestionSet();
-
 }
 
 //タイピングゲームの問題をセットする関数
