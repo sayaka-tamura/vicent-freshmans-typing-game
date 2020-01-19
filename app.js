@@ -1,15 +1,19 @@
 //キー押下時に関数typeGame()を呼び出す
 document.onkeydown = typeGame;
 
+//-----takano start-----
 //文字を格納する配列
 var moji = new Array("Ａ","Ｂ","Ｃ","Ｄ","Ｅ","Ｆ","Ｇ","Ｈ","Ｉ",
                      "Ｊ","Ｋ","Ｌ","Ｍ","Ｎ","Ｏ","Ｐ","Ｑ","Ｒ",
-                     "Ｓ","Ｔ","Ｕ","Ｖ","Ｗ","Ｘ","Ｙ","Ｚ");
+                     "Ｓ","Ｔ","Ｕ","Ｖ","Ｗ","Ｘ","Ｙ","Ｚ",
+                     "０","１","２","３","４","５","６","７","８","９");
 
 //キーコードを格納する配列
 var kcode = new Array(65,66,67,68,69,70,71,72,73,
                       74,75,76,77,78,79,80,81,82,
-                      83,84,85,86,87,88,89,90);
+                      83,84,85,86,87,88,89,90,
+                      48,49,50,51,52,53,54,55,56,57);
+//-----takano end-----
 
 //0～25までの乱数を格納する配列
 var rnd = new Array();
@@ -23,6 +27,14 @@ var typStart,typEnd;   //開始時と終了時の時刻を格納
 function gameSet(){
   // メッセージをクリアする
   document.getElementById('waku').innerHTML="";
+
+//-----takano start-----
+  //カウント処理を停止
+  clearInterval(timer);
+
+  // 時間表示をクリアする
+  document.getElementById('time').innerHTML="";
+//-----takano end-----
 
   // 問題文をセットする
   QuestionSet();
@@ -45,14 +57,16 @@ function QuestionSet()
 
 }
 
-//0～25までの乱数を20個作成して配列rndに格納する関数
+//-----takano start-----
+//0～34までの乱数を20個作成して配列rndに格納する関数
 function ransu()
 {
   for ( var i = 0 ; i < 20 ; i++ )
   {
-    rnd[i] = Math.floor( Math.random() * 26 );
+    rnd[i] = Math.floor( Math.random() * 35 );
   }
 }
+//-----takano end-----
 
 //問題文の作成（配列mojiの要素をランダムに20文字繋げる）
 function makingQuestions() {
