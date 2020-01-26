@@ -8,23 +8,63 @@
     <!-- CSS 読み込み -->
     <link href="./app.css" rel="stylesheet" type="text/css">
     <!-- JS 読み込み -->
-    <script type="text/javascript" src="./app.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="./js/app.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="./js/saveHistory.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="./js/typeGame.js" charset="UTF-8"></script>
+
     <!-- Material Design 読み込み -->
     <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.indigo-pink.min.css">
     <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Google font 読み込み -->
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
   </head>
 
   <body onload="QuestionSet()">
     <div class="contents-wrapper">
-      <div class="contents">
-        <h2>Vicent 新人研修 Typing Game</h2>
-        <div id="time"></div>
-        <div id="waku"></div>
-        <form class="initialize-btn">
-          <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="button" value="問題初期化" onclick="gameSet()"><br>
-        </form>
+      <!-- Side Bar -->
+      <div class="demo-layout-transparent mdl-layout mdl-js-layout">
+        <header class="mdl-layout__header mdl-layout__header--transparent">
+          <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">Vicent Typing Game</span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation -->
+            <nav class="mdl-navigation">
+              <a class="mdl-navigation__link" href="">Play Game</a>
+              <a class="mdl-navigation__link" href="">Scores</a>
+            </nav>
+          </div>
+        </header>
+        <div class="mdl-layout__drawer">
+          <span class="mdl-layout-title">Vicent Typing Game</span>
+          <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="">Play Game</a>
+            <a class="mdl-navigation__link" href="">Scores</a>
+          </nav>
       </div>
-    </div>
+
+      <!-- Contents -->
+      <main class="mdl-layout__content contents">
+        <div class="">
+          <!-- <h2 class="worksuns">Vicent Typing Game</h2> -->
+
+          <div id="waku"></div>
+
+          <form class="initialize-btn">
+            <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="button" value="Again" onclick="gameSet()"><br>
+          </form>
+
+          <div>
+            <div id="time"></div>
+            <div id="validity"></div>
+            <div id="correct-answer-rate"></div>
+          </div>
+
+          <div id="show-history"></div>
+
+        </div>
+      </main>
   </body>
 </html>
