@@ -4,67 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Vicent Typing Game</title>
     <!-- CSS 読み込み -->
     <link href="./app.css" rel="stylesheet" type="text/css">
-    <!-- JS 読み込み -->
-    <script type="text/javascript" src="./js/app.js" charset="UTF-8"></script>
-    <script type="text/javascript" src="./js/saveHistory.js" charset="UTF-8"></script>
-    <script type="text/javascript" src="./js/typeGame.js" charset="UTF-8"></script>
-
+    <!-- JS 一括読み込み -->
+    <script type="text/javascript" src="./js/import.js" charset="UTF-8"></script>
+    
     <!-- Material Design 読み込み -->
     <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.indigo-pink.min.css">
     <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Google font 読み込み -->
     <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
+    <!-- Chart.js の読み込み -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
   </head>
 
   <body onload="QuestionSet()">
-    <div class="contents-wrapper">
-      <!-- Side Bar -->
-      <div class="demo-layout-transparent mdl-layout mdl-js-layout">
-        <header class="mdl-layout__header mdl-layout__header--transparent">
-          <div class="mdl-layout__header-row">
-            <!-- Title -->
-            <span class="mdl-layout-title">Vicent Typing Game</span>
-            <!-- Add spacer, to align navigation to the right -->
-            <div class="mdl-layout-spacer"></div>
-            <!-- Navigation -->
-            <nav class="mdl-navigation">
-              <a class="mdl-navigation__link" href="">Play Game</a>
-              <a class="mdl-navigation__link" href="">Scores</a>
-            </nav>
-          </div>
-        </header>
-        <div class="mdl-layout__drawer">
+    <!-- Side Bar -->
+    <div class="demo-layout-transparent mdl-layout mdl-js-layout">
+      <header class="mdl-layout__header mdl-layout__header--transparent">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
           <span class="mdl-layout-title">Vicent Typing Game</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
           <nav class="mdl-navigation">
             <a class="mdl-navigation__link" href="">Play Game</a>
             <a class="mdl-navigation__link" href="">Scores</a>
           </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Vicent Typing Game</span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="">Play Game</a>
+          <a class="mdl-navigation__link" href="">Scores</a>
+        </nav>
+    </div>
+    <!-- Contents -->
+    <div class="mdl-layout__content contents">
+      <div id="waku"></div>
+
+      <form class="initialize-btn">
+        <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="button" value="Again" onclick="gameSet()"><br>
+      </form>
+
+      <div>
+        <div id="time"></div>
+        <div id="validity"></div>
+        <div id="correct-answer-rate"></div>
       </div>
 
-      <!-- Contents -->
-      <main class="mdl-layout__content contents">
-        <div class="">
-          <!-- <h2 class="worksuns">Vicent Typing Game</h2> -->
+      <div id="show-history"></div>
+      
+      <div style="width: 50%">
+        <canvas id="chart" height="450" width="600"></canvas>
+      </div>
 
-          <div id="waku"></div>
-
-          <form class="initialize-btn">
-            <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="button" value="Again" onclick="gameSet()"><br>
-          </form>
-
-          <div>
-            <div id="time"></div>
-            <div id="validity"></div>
-            <div id="correct-answer-rate"></div>
-          </div>
-
-          <div id="show-history"></div>
-
-        </div>
-      </main>
+    </div>
   </body>
 </html>

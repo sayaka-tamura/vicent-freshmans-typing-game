@@ -1,14 +1,9 @@
 /** memo: https://creatorclip.info/2015/07/material-design-lite/ */
-h2{
-  text-align: center;
-  font-weight: 600;
-}
 
 table{ border-spacing: 7px; }
 
 td {
-  background-color: aqua;
-  border: solid green 1px;
+  border: solid gray 1px;
   padding: 8px;
   font-family: 'Work Sans', sans-serif;
   border-radius: 2rem;

@@ -37,7 +37,7 @@ function typeGame(evt)
       var countup = function(){
         count++;
         //表示文作成
-        var displayTime = "経過時間：" + count + "秒";
+        var displayTime = "Time elapsed：" + count + "Sec";
         document.getElementById("time").innerHTML = displayTime;
       } 
       //処理を1000ミリ秒(1秒)ごと繰り返す
@@ -46,7 +46,7 @@ function typeGame(evt)
 
     //入力されたセルの文字色を緑色にする
     var idName = "word"+cnt;
-    document.getElementById(idName).style.color="lightgreen";
+    document.getElementById(idName).style.color="DodgerBlue";
 
     cnt++; //問題数を＋１にする
   }
@@ -107,6 +107,7 @@ function typeGame(evt)
     document.getElementById("gaming-time-title").appendChild(gamingTime);
 
     saveHistory();
+    drawChart();
   }
 
   // 小数点n位までを残す関数
