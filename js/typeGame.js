@@ -97,8 +97,6 @@ function typeGame(evt)
     showHistory.html(gaming_time + ", " + mistype + ", " + formattedAnswerRate);
     $("#show-history").append(showHistory);
 
-    $("#chart-1-title").show();
-    $("#chart-2-title").show();
     drawChart();
     
   }
@@ -141,66 +139,22 @@ function typeGame(evt)
   }
 }
 
-// Chart.JS 用データ
-var typeSpeedAndValidity = {
-  labels : numOfTry_array,
-  datasets : [
-    {
-      label: "gaming-time",                                 //項目名
-      fillColor : /*"#f2dae8"*/"rgba(242,218,232,0.6)",     //塗りつぶす色
-      strokeColor : /*"#dd9cb4"*/"rgba(221,156,180,0.6)",   //線の色
-      pointColor : /*"#dd9cb4"*/"rgba(221,156,180,0.6)",    //値の点を塗りつぶす色
-      pointStrokeColor : "#fff",                            //値の点の枠線の色
-      pointHighlightFill : "#fff",                          //マウスオーバー時値の点を塗りつぶす色
-      pointHighlightStroke : /*"#dd9cb4"*/"rgba(221,156,180,0.6)",  //マウスオーバー時値の点の枠線を塗りつぶす色
-      data : gaming_time_history_array                      //値
-    },
-    {
-      label: "validity",
-      fillColor : /*"#afd0ef"*/"rgba(175,208,239,0.6)",
-      strokeColor : /*"#fb7dd8"*/"rgba(143,183,221,0.6)",
-      pointColor : /*"#8fb7dd"*/"rgba(143,183,221,0.6)",
-      pointStrokeColor : "#fff",
-      pointHighlightFill : "#fff",
-      pointHighlightStroke : /*"#8fb7dd"*/"rgba(143,183,221,0.6)",
-      data : validity_array
-    }
-  ]
-
-}
-
-var correctAnswerRate = {
-  labels : numOfTry_array,
-  datasets : [
-    {
-      label: "correct-answer-rate",                         //項目名
-      fillColor : /*"#f2dae8"*/"rgba(242,218,232,0.6)",     //塗りつぶす色
-      strokeColor : /*"#dd9cb4"*/"rgba(221,156,180,0.6)",   //線の色
-      pointColor : /*"#dd9cb4"*/"rgba(221,156,180,0.6)",    //値の点を塗りつぶす色
-      pointStrokeColor : "#fff",                            //値の点の枠線の色
-      pointHighlightFill : "#fff",                          //マウスオーバー時値の点を塗りつぶす色
-      pointHighlightStroke : /*"#dd9cb4"*/"rgba(221,156,180,0.6)",  //マウスオーバー時値の点の枠線を塗りつぶす色
-      data : correct_answer_rate                            //値
-    }
-  ]
-}
-
 // Chart を描く
 function drawChart(){
-  var ctx = document.getElementById("chart-1").getContext("2d");
+  var ctx1 = document.getElementById("chart-1");
   numOfTry_array.push(numOfTry);
 
-  window.myLine = new Chart(ctx).Line(typeSpeedAndValidity, {
-    responsive: true
-    // 下記を追加すると線がまっすぐになります
-    /* bezierCurve: false */
+  var myChart = new Chart(ctx1,{
+    type:'line',
+    data: typeSpeedAndValidity,
+    options:options1
   });
 
-  var ctx = document.getElementById("chart-2").getContext("2d");
-  window.myLine = new Chart(ctx).Line(correctAnswerRate, {
-    responsive: true
-    // 下記を追加すると線がまっすぐになります
-    /* bezierCurve: false */
+  var ctx2 = document.getElementById("chart-2");
+  var myChart = new Chart(ctx2,{
+    type:'line',
+    data: correctAnswerRate,
+    options:options2
   });
 
   numOfTry++;

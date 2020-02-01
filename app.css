@@ -44,4 +44,7 @@ div#time, div#validity, div#correct-answer-rate
   text-align: center;
 }
 
-.charts{float: left;}
+.charts{
+  float: left;
+  width:32%;
+}
