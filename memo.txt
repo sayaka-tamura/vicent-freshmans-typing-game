@@ -1,4 +1,5 @@
-・JavaScript から JSON 生成 (Added Favorites)
+・HTML への記録の書き込み　→ 表に変えること
+・タイピング記録を Chart.js へ反映
 
 ・ヒストリーの value を使ってCHART を表示してみる
 ・Bug: 10問不正解時の際、問題が終了できない

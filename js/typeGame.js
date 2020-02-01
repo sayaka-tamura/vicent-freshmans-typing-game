@@ -1,7 +1,8 @@
 //キー押下時に関数typeGame()を呼び出す
 document.onkeydown = typeGame;
 
-var typStart,typEnd;   //開始時と終了時の時刻を格納
+var typStart,typEnd;      //開始時と終了時の時刻
+var formattedAnswerRate;  //正答率
 var numOfQuestions=11;
 
 //キー入力を受け取る関数
@@ -45,18 +46,15 @@ function typeGame(evt)
     }
 
     //入力されたセルの文字色を緑色にする
-    var idName = "word"+cnt;
-    document.getElementById(idName).style.color="DodgerBlue";
-
-    cnt++; //問題数を＋１にする
+    let colorName1 = "DodgerBlue";
+    changeCharColor(colorName1);
   }
   // 誤答時
   else if (kc != kcode[ rnd[cnt] ])
   {
     //入力されたセルの文字色を赤色にする
-    var idName = "word"+cnt;
-    document.getElementById(idName).style.color="red";
-    cnt++; //問題数を＋１にする
+    let colorName2 = "red";
+    changeCharColor(colorName2);
     mistype++;
   }
   
@@ -77,8 +75,10 @@ function typeGame(evt)
 
     //正答率の表示
     var answerRate = ((numOfQuestions-mistype)/numOfQuestions)*100
-    $("#correct-answer-rate").html("Correct answer rate (%) : " + floatFormat(answerRate,2)); 
+    formattedAnswerRate = floatFormat(answerRate,2);
+    $("#correct-answer-rate").html("Correct answer rate (%) : " + formattedAnswerRate); 
 
+    //タイプ時間を表示
     //全文字入力していたら、終了時間を記録する
     typEnd = new Date();
 
@@ -91,7 +91,6 @@ function typeGame(evt)
     //1000で割った「余り(%で取得できる）」でミリ秒を取得
     var msec = keika % 1000;
 
-    //タイプ時間を表示
     let gamingTimeTitle = $('<div>',{id:'gaming-time-title'});
     gamingTimeTitle.html("Time (Sec)：");
 
@@ -104,6 +103,12 @@ function typeGame(evt)
 
     saveHistory();
     drawChart();
+  }
+
+  function changeCharColor(colorName) {
+    var idName = "word" + cnt;
+    document.getElementById(idName).style.color = colorName;
+    cnt++; //問題数を＋１にする
   }
 
   // 小数点n位までを残す関数
@@ -121,13 +126,60 @@ function saveHistory(){
   
   // データの保存
   sessionStorage.setItem('gaming_time', gamingTime);
+  //mistype
+  //formattedAnswerRate
 
   // データの取得
   gamingTime = sessionStorage.getItem('gaming_time');
 
+  // HTML への記録の書き込み　→ 表に変えること
   let showHistory = $('<div>');
-  showHistory.html(gamingTime);
+  showHistory.html(gamingTime + ", " + mistype + ", " + formattedAnswerRate);
 
   $("#show-history").append(showHistory);
 
+  // typing try 回数 を保存する array, gaming-timeを RECORD するようのArray 作成
+  // lineChartDataの label と data にいれる
+
+  //JSON 作成
+    // let userData = "{gaming_time:" + gamingTime + ", mistype:" + mistype + ", answer_rate:" + formattedAnswerRate +"}";
+    // let userDataJSON = JSON.stringify(userData);
+    // console.log(userDataJSON);  // "{gaming_time:6.965, mistype:1, answer_rate:90.91}"
+}
+
+// Chart.JS 用データ
+var lineChartData = {
+  labels : ["1","2","3","4","5","6"],                       //X軸のラベル
+  datasets : [
+    {
+      label: "gaming-time",                                 //項目名
+      fillColor : /*"#f2dae8"*/"rgba(242,218,232,0.6)",     //塗りつぶす色
+      strokeColor : /*"#dd9cb4"*/"rgba(221,156,180,0.6)",   //線の色
+      pointColor : /*"#dd9cb4"*/"rgba(221,156,180,0.6)",    //値の点を塗りつぶす色
+      pointStrokeColor : "#fff",                            //値の点の枠線の色
+      pointHighlightFill : "#fff",                          //マウスオーバー時値の点を塗りつぶす色
+      pointHighlightStroke : /*"#dd9cb4"*/"rgba(221,156,180,0.6)",  //マウスオーバー時値の点の枠線を塗りつぶす色
+      data : [67,65,66,70,71,77]                            //値
+    }
+    // {
+    //   label: "validity",
+    //   fillColor : /*"#afd0ef"*/"rgba(175,208,239,0.6)",
+    //   strokeColor : /*"#fb7dd8"*/"rgba(143,183,221,0.6)",
+    //   pointColor : /*"#8fb7dd"*/"rgba(143,183,221,0.6)",
+    //   pointStrokeColor : "#fff",
+    //   pointHighlightFill : "#fff",
+    //   pointHighlightStroke : /*"#8fb7dd"*/"rgba(143,183,221,0.6)",
+    //   data : [57,56,55,53,56,49]
+    // }
+  ]
+
+}
+
+function drawChart(){
+  var ctx = document.getElementById("chart").getContext("2d");
+  window.myLine = new Chart(ctx).Line(lineChartData, {
+    responsive: true
+    // 下記を追加すると線がまっすぐになります
+    /* bezierCurve: false */
+  });
 }
