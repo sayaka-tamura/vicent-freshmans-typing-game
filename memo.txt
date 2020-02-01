@@ -1,5 +1,3 @@
-・JQuery でコードの簡略化
-・cell　用view の体裁崩れあり、要調整
 ・JavaScript から JSON 生成 (Added Favorites)
 
 ・ヒストリーの value を使ってCHART を表示してみる

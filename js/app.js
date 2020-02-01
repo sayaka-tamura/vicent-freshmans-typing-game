@@ -18,42 +18,42 @@ var mondai = "";       //問題の文字列を格納
 var cnt=0;             //何問目か格納
 var mistype=0;         //誤答数のカウント
 
-function gameSet(){
+//タイピングゲームの問題をセットする関数
+// function QuestionSet()
+$(window).on('load', function(){
+  // カウント数のクリア
+  QuestionSet();
+});
+
+function QuestionSet() {
+  cnt = 0;
+  //乱数作成関数の呼び出し
+  ransu();
+  //問題文作成関数の呼び出し
+  var table = makingQuestions();
+  //問題枠に表示する
+  $("#waku").append(table);
+}
+
+$(document).on('click','#again',function(){
   //問題数と誤答数のクリア
   cnt=0;
   mistype=0;
 
   // メッセージをクリアする
-  document.getElementById('waku').innerHTML="";
+  $('#waku').html("");
 
   //カウント処理を停止
   clearInterval(timer);
 
   // 時間表示をクリアする
-  document.getElementById('time').innerHTML="";
-  document.getElementById('validity').innerHTML="";
-  document.getElementById('correct-answer-rate').innerHTML="";
+  $("#time").html("");
+  $("#validity").html("");
+  $("#correct-answer-rate").html("");
 
   // 問題文をセットする
   QuestionSet();
-}
-
-//タイピングゲームの問題をセットする関数
-function QuestionSet()
-{
-  // カウント数のクリア
-  cnt=0;
-
-  //乱数作成関数の呼び出し
-  ransu();
-
-  //問題文作成関数の呼び出し
-  var table = makingQuestions();
-
-  //問題枠に表示する
-  document.getElementById("waku").appendChild(table);
-
-}
+});
 
 //0～34までの乱数を20個作成して配列rndに格納する関数
 function ransu()
@@ -66,23 +66,22 @@ function ransu()
 
 //問題文の作成（配列mojiの要素をランダムに20文字繋げる）
 function makingQuestions() {
-  var table = document.createElement('table');
-  table.id = "table1";
 
   var num = 0;
   for (var i = 0; i < 1; i++) {
-    var tr = document.createElement('tr');
+    var tr = $('<tr>');
     for (var j = 0; j < 11; j++) {
+      // 問題をランダムに選び, mondai 配列に格納
       mondai = moji[rnd[num]];
-      var td = document.createElement('td');
-      td.id = "word"+ num;
-      td.textContent = mondai;
+      // td要素の作成
+      var td = $('<td>', { id:"word"+ num})
+      td.html(mondai);
       // td要素をtr要素の子要素に追加
-      tr.appendChild(td);
+      tr.append(td);
       num++;
     }
     // tr要素をtable要素の子要素に追加
-    table.appendChild(tr);
+    var table = $('<table>', { id:'table1'}).append(tr);
   }
   return table;
 }

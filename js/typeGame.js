@@ -10,7 +10,7 @@ function typeGame(evt)
   var kc;  //入力されたキーコードを格納する変数
 
   //入力されたキーのキーコードを取得
-  if (document.getElementsByTagName('*'))
+  if ($('*'))
   {
     // 押されたキーコードを取得
     kc = event.keyCode;
@@ -37,8 +37,8 @@ function typeGame(evt)
       var countup = function(){
         count++;
         //表示文作成
-        var displayTime = "Time elapsed：" + count + "Sec";
-        document.getElementById("time").innerHTML = displayTime;
+        var displayTime = "Time elapsed：" + count + " Sec";
+        $("#time").html(displayTime);
       } 
       //処理を1000ミリ秒(1秒)ごと繰り返す
       timer = setInterval(countup, 1000);
@@ -67,19 +67,17 @@ function typeGame(evt)
     clearInterval(timer);
     
     //表示文作成
-    document.getElementById("time").innerHTML = "お疲れさまでした(*'▽')";
+    $("#time").html("お疲れさまでした(*'▽')");
 
     //誤答数の表示
-    document.getElementById("validity").innerHTML="Number of Mistakes: ";
-    let numOfMistype = document.createElement('span');
-    numOfMistype.id="num-of-mistype";
-    numOfMistype.innerHTML = mistype;
-
-    document.getElementById("validity").appendChild(numOfMistype);
+    $("#validity").html("Number of Mistakes: ");
+    var numOfMistype = $('<span>', { id:'num-of-mistype'});
+    numOfMistype.html(mistype);
+    $("#validity").append(numOfMistype);
 
     //正答率の表示
     var answerRate = ((numOfQuestions-mistype)/numOfQuestions)*100
-    document.getElementById("correct-answer-rate").innerHTML = "Correct answer rate (%) : " + floatFormat(answerRate,2); 
+    $("#correct-answer-rate").html("Correct answer rate (%) : " + floatFormat(answerRate,2)); 
 
     //全文字入力していたら、終了時間を記録する
     typEnd = new Date();
@@ -94,17 +92,15 @@ function typeGame(evt)
     var msec = keika % 1000;
 
     //タイプ時間を表示
-    let gamingTimeTitle = document.createElement('div');
-    gamingTimeTitle.id="gaming-time-title";
-    gamingTimeTitle.innerHTML="Time (Sec)：";
+    let gamingTimeTitle = $('<div>',{id:'gaming-time-title'});
+    gamingTimeTitle.html("Time (Sec)：");
 
-    let gamingTime = document.createElement('span');
-    gamingTime.id="gaming-time";
-    gamingTime.innerHTML = sec + "."+ msec;
+    let gamingTime = $('<span>',{id:'gaming-time'});
+    gamingTime.html(sec + "."+ msec);
 
     // 作成したdivを付属させる
-    document.getElementById("time").appendChild(gamingTimeTitle);
-    document.getElementById("gaming-time-title").appendChild(gamingTime);
+    $("#time").append(gamingTimeTitle);
+    $("#gaming-time-title").append(gamingTime);
 
     saveHistory();
     drawChart();

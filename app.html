@@ -5,22 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Vicent Typing Game</title>
-    <!-- CSS 読み込み -->
+    <!-- Download CSS -->
     <link href="./app.css" rel="stylesheet" type="text/css">
-    <!-- JS 一括読み込み -->
+
+    <!-- 1.Download JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- 2.Download JS files at once -->
     <script type="text/javascript" src="./js/import.js" charset="UTF-8"></script>
     
-    <!-- Material Design 読み込み -->
+    <!-- Download Material Design -->
     <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.indigo-pink.min.css">
     <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!-- Google font 読み込み -->
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
-    <!-- Chart.js の読み込み -->
+
+    <!-- Download Chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
   </head>
 
-  <body onload="QuestionSet()">
+  <body>
     <!-- Side Bar -->
     <div class="demo-layout-transparent mdl-layout mdl-js-layout">
       <header class="mdl-layout__header mdl-layout__header--transparent">
@@ -48,7 +50,7 @@
       <div id="waku"></div>
 
       <form class="initialize-btn">
-        <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="button" value="Again" onclick="gameSet()"><br>
+        <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="button" value="Again" id="again"><br>
       </form>
 
       <div>
