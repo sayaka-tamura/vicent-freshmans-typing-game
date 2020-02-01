@@ -1,3 +1,6 @@
+let gamingTime = $('#gaming-time').text();
+let gamingTimeJSON = JSON.stringify(gamingTime);
+
 var lineChartData = {
   labels : ["1","2","3","4","5","6"],                       //X軸のラベル
   datasets : [
