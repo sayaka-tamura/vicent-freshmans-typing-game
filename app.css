@@ -43,3 +43,5 @@ div#time, div#validity, div#correct-answer-rate
 .initialize-btn{
   text-align: center;
 }
+
+.charts{float: left;}

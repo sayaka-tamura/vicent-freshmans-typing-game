@@ -7,6 +7,8 @@ let numOfQuestions=11;
 let numOfTry=1;
 let numOfTry_array = [];
 let gaming_time_history_array = [];
+let validity_array = [];
+let correct_answer_rate = [];
 
 //キー入力を受け取る関数
 function typeGame(evt)
@@ -87,12 +89,16 @@ function typeGame(evt)
     // Chart.js 用に value を保存
     let gaming_time = $('#gaming-time').text();
     gaming_time_history_array.push(gaming_time);
+    validity_array.push(mistype);
+    correct_answer_rate.push(formattedAnswerRate);
 
       // HTML への記録の書き込み　→ 表に変えること
     let showHistory = $('<div>');
     showHistory.html(gaming_time + ", " + mistype + ", " + formattedAnswerRate);
     $("#show-history").append(showHistory);
 
+    $("#chart-1-title").show();
+    $("#chart-2-title").show();
     drawChart();
     
   }
@@ -136,7 +142,7 @@ function typeGame(evt)
 }
 
 // Chart.JS 用データ
-var lineChartData = {
+var typeSpeedAndValidity = {
   labels : numOfTry_array,
   datasets : [
     {
@@ -148,31 +154,54 @@ var lineChartData = {
       pointHighlightFill : "#fff",                          //マウスオーバー時値の点を塗りつぶす色
       pointHighlightStroke : /*"#dd9cb4"*/"rgba(221,156,180,0.6)",  //マウスオーバー時値の点の枠線を塗りつぶす色
       data : gaming_time_history_array                      //値
+    },
+    {
+      label: "validity",
+      fillColor : /*"#afd0ef"*/"rgba(175,208,239,0.6)",
+      strokeColor : /*"#fb7dd8"*/"rgba(143,183,221,0.6)",
+      pointColor : /*"#8fb7dd"*/"rgba(143,183,221,0.6)",
+      pointStrokeColor : "#fff",
+      pointHighlightFill : "#fff",
+      pointHighlightStroke : /*"#8fb7dd"*/"rgba(143,183,221,0.6)",
+      data : validity_array
     }
-    // {
-    //   label: "validity",
-    //   fillColor : /*"#afd0ef"*/"rgba(175,208,239,0.6)",
-    //   strokeColor : /*"#fb7dd8"*/"rgba(143,183,221,0.6)",
-    //   pointColor : /*"#8fb7dd"*/"rgba(143,183,221,0.6)",
-    //   pointStrokeColor : "#fff",
-    //   pointHighlightFill : "#fff",
-    //   pointHighlightStroke : /*"#8fb7dd"*/"rgba(143,183,221,0.6)",
-    //   data : [57,56,55,53,56,49]
-    // }
   ]
 
 }
 
+var correctAnswerRate = {
+  labels : numOfTry_array,
+  datasets : [
+    {
+      label: "correct-answer-rate",                         //項目名
+      fillColor : /*"#f2dae8"*/"rgba(242,218,232,0.6)",     //塗りつぶす色
+      strokeColor : /*"#dd9cb4"*/"rgba(221,156,180,0.6)",   //線の色
+      pointColor : /*"#dd9cb4"*/"rgba(221,156,180,0.6)",    //値の点を塗りつぶす色
+      pointStrokeColor : "#fff",                            //値の点の枠線の色
+      pointHighlightFill : "#fff",                          //マウスオーバー時値の点を塗りつぶす色
+      pointHighlightStroke : /*"#dd9cb4"*/"rgba(221,156,180,0.6)",  //マウスオーバー時値の点の枠線を塗りつぶす色
+      data : correct_answer_rate                            //値
+    }
+  ]
+}
+
 // Chart を描く
 function drawChart(){
-  var ctx = document.getElementById("chart").getContext("2d");
+  var ctx = document.getElementById("chart-1").getContext("2d");
   numOfTry_array.push(numOfTry);
 
-  window.myLine = new Chart(ctx).Line(lineChartData, {
+  window.myLine = new Chart(ctx).Line(typeSpeedAndValidity, {
     responsive: true
     // 下記を追加すると線がまっすぐになります
     /* bezierCurve: false */
   });
-  
+
+  var ctx = document.getElementById("chart-2").getContext("2d");
+  window.myLine = new Chart(ctx).Line(correctAnswerRate, {
+    responsive: true
+    // 下記を追加すると線がまっすぐになります
+    /* bezierCurve: false */
+  });
+
   numOfTry++;
 }

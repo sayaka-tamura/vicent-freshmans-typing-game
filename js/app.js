@@ -23,6 +23,10 @@ var mistype=0;         //誤答数のカウント
 $(window).on('load', function(){
   // カウント数のクリア
   QuestionSet();
+
+  //Chart title を隠す
+  $("#chart-1-title").hide();
+  $("#chart-2-title").hide();
 });
 
 function QuestionSet() {
