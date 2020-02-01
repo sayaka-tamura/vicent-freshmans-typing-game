@@ -82,35 +82,40 @@ function typeGame(evt)
     $("#correct-answer-rate").html("Correct answer rate (%) : " + formattedAnswerRate); 
 
     //タイプ時間を表示
-    //全文字入力していたら、終了時間を記録する
-    typEnd = new Date();
-
-    //終了時間－開始時間で掛かったミリ秒を取得する
-    var keika = typEnd - typStart;
-
-    //1000で割って「切捨て」、秒数を取得
-    var sec = Math.floor( keika/1000 );
-
-    //1000で割った「余り(%で取得できる）」でミリ秒を取得
-    var msec = keika % 1000;
-
-    let gamingTimeTitle = $('<div>',{id:'gaming-time-title'});
-    gamingTimeTitle.html("Time (Sec)：");
-
-    let gamingTime = $('<span>',{id:'gaming-time'});
-    gamingTime.html(sec + "."+ msec);
-
-    // 作成したdivを付属させる
-    $("#time").append(gamingTimeTitle);
-    $("#gaming-time-title").append(gamingTime);
+    recordTypingSpeed();
 
     // Chart.js 用に value を保存
     let gaming_time = $('#gaming-time').text();
     gaming_time_history_array.push(gaming_time);
 
-    saveHistory();
+      // HTML への記録の書き込み　→ 表に変えること
+    let showHistory = $('<div>');
+    showHistory.html(gaming_time + ", " + mistype + ", " + formattedAnswerRate);
+    $("#show-history").append(showHistory);
+
     drawChart();
     
+  }
+
+  //タイプ時間を表示
+  function recordTypingSpeed() {
+    typEnd = new Date();
+    //終了時間－開始時間で掛かったミリ秒を取得する
+    var keika = typEnd - typStart;
+    //1000で割って「切捨て」、秒数を取得
+    var sec = Math.floor(keika / 1000);
+    //1000で割った「余り(%で取得できる）」でミリ秒を取得
+    var msec = keika % 1000;
+    
+    let gamingTimeTitle = $('<div>', { id: 'gaming-time-title' });
+    gamingTimeTitle.html("Time (Sec)：");
+
+    let gamingTime = $('<span>', { id: 'gaming-time' });
+    gamingTime.html(sec + "." + msec);
+    
+    // 作成したdivを付属させる
+    $("#time").append(gamingTimeTitle);
+    $("#gaming-time-title").append(gamingTime);
   }
 
   //入力されたセルの文字色を変更する
@@ -128,26 +133,6 @@ function typeGame(evt)
 
     return Math.round( number * _pow ) / _pow ;
   }
-}
-
-// ゲーム記録を Session へ保存
-function saveHistory(){
-  let gamingTime = $('#gaming-time').text();
-  
-  // データの保存
-  sessionStorage.setItem('gaming_time', gamingTime);
-  //mistype
-  //formattedAnswerRate
-
-  // データの取得
-  gamingTime = sessionStorage.getItem('gaming_time');
-
-  // HTML への記録の書き込み　→ 表に変えること
-  let showHistory = $('<div>');
-  showHistory.html(gamingTime + ", " + mistype + ", " + formattedAnswerRate);
-
-  $("#show-history").append(showHistory);
-
 }
 
 // Chart.JS 用データ
