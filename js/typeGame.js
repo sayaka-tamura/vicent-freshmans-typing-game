@@ -1,9 +1,12 @@
 //キー押下時に関数typeGame()を呼び出す
 document.onkeydown = typeGame;
 
-var typStart,typEnd;      //開始時と終了時の時刻
-var formattedAnswerRate;  //正答率
-var numOfQuestions=11;
+let typStart,typEnd;      //開始時と終了時の時刻
+let formattedAnswerRate;  //正答率
+let numOfQuestions=11;
+let numOfTry=1;
+let numOfTry_array = [];
+let gaming_time_history_array = [];
 
 //キー入力を受け取る関数
 function typeGame(evt)
@@ -101,10 +104,16 @@ function typeGame(evt)
     $("#time").append(gamingTimeTitle);
     $("#gaming-time-title").append(gamingTime);
 
+    // Chart.js 用に value を保存
+    let gaming_time = $('#gaming-time').text();
+    gaming_time_history_array.push(gaming_time);
+
     saveHistory();
     drawChart();
+    
   }
 
+  //入力されたセルの文字色を変更する
   function changeCharColor(colorName) {
     var idName = "word" + cnt;
     document.getElementById(idName).style.color = colorName;
@@ -121,6 +130,7 @@ function typeGame(evt)
   }
 }
 
+// ゲーム記録を Session へ保存
 function saveHistory(){
   let gamingTime = $('#gaming-time').text();
   
@@ -138,18 +148,11 @@ function saveHistory(){
 
   $("#show-history").append(showHistory);
 
-  // typing try 回数 を保存する array, gaming-timeを RECORD するようのArray 作成
-  // lineChartDataの label と data にいれる
-
-  //JSON 作成
-    // let userData = "{gaming_time:" + gamingTime + ", mistype:" + mistype + ", answer_rate:" + formattedAnswerRate +"}";
-    // let userDataJSON = JSON.stringify(userData);
-    // console.log(userDataJSON);  // "{gaming_time:6.965, mistype:1, answer_rate:90.91}"
 }
 
 // Chart.JS 用データ
 var lineChartData = {
-  labels : ["1","2","3","4","5","6"],                       //X軸のラベル
+  labels : numOfTry_array,
   datasets : [
     {
       label: "gaming-time",                                 //項目名
@@ -159,7 +162,7 @@ var lineChartData = {
       pointStrokeColor : "#fff",                            //値の点の枠線の色
       pointHighlightFill : "#fff",                          //マウスオーバー時値の点を塗りつぶす色
       pointHighlightStroke : /*"#dd9cb4"*/"rgba(221,156,180,0.6)",  //マウスオーバー時値の点の枠線を塗りつぶす色
-      data : [67,65,66,70,71,77]                            //値
+      data : gaming_time_history_array                      //値
     }
     // {
     //   label: "validity",
@@ -175,11 +178,16 @@ var lineChartData = {
 
 }
 
+// Chart を描く
 function drawChart(){
   var ctx = document.getElementById("chart").getContext("2d");
+  numOfTry_array.push(numOfTry);
+
   window.myLine = new Chart(ctx).Line(lineChartData, {
     responsive: true
     // 下記を追加すると線がまっすぐになります
     /* bezierCurve: false */
   });
+  
+  numOfTry++;
 }
