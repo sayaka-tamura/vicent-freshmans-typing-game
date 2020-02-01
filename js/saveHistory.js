@@ -1,5 +1,5 @@
 function saveHistory(){
-    var gamingTime = document.getElementById('gaming-time').textContent;
+    var gamingTime = $('#gaming-time').text();
 
     // データの保存
     sessionStorage.setItem('gaming_time', gamingTime);
@@ -7,9 +7,9 @@ function saveHistory(){
     // データの取得
     gamingTime = sessionStorage.getItem('gaming_time');
 
-    let showHistory = document.createElement('div');
-    showHistory.innerHTML = gamingTime;
+    let showHistory = $('<div>');
+    showHistory.html(gamingTime);
 
-    document.getElementById("show-history").appendChild(showHistory);
+    $("#show-history").append(showHistory);
 
 }
