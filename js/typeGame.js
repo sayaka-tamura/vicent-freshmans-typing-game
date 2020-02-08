@@ -44,7 +44,7 @@ function typeGame(evt)
       var countup = function(){
         count++;
         //表示文作成
-        var displayTime = "Time elapsed : "  + " Sec";
+        var displayTime = "Time elapsed : " + count + " Sec";
         $("#time").html(displayTime);
       } 
       //処理を1000ミリ秒(1秒)ごと繰り返す
