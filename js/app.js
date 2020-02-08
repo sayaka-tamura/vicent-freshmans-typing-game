@@ -50,7 +50,7 @@ $(document).on('click','#again',function(){
   // 時間表示をクリアする
   $("#time").html("");
   $("#validity").html("");
-  $("#correct-answer-rate").html("");
+  $("#accuracy").html("");
 
   // 問題文をセットする
   QuestionSet();

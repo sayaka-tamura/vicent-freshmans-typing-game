@@ -21,7 +21,7 @@ var typeSpeedAndValidity = {
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data : gaming_time_history_array,                     //値
+      data : typing_speed_history,                     //値
       spanGaps: false,
     },
     {
@@ -104,7 +104,7 @@ datasets : [
     pointHoverBorderWidth: 2,
     pointRadius: 1,
     pointHitRadius: 10,
-    data : correct_answer_rate,                           //値
+    data : accuracy,                           //値
     spanGaps : false,
   }
 ]

@@ -1,11 +1,12 @@
 /** memo: https://creatorclip.info/2015/07/material-design-lite/ */
 
-table{ border-spacing: 7px; }
+table { width: 100%; }
 
-td {
+#table1 { border-spacing: 7px; }
+
+#table1 td {
   border: solid gray 1px;
   padding: 8px;
-  font-family: 'Work Sans', sans-serif;
   border-radius: 2rem;
 }
 
@@ -20,8 +21,6 @@ td {
   color: #333;
 }
 
-.worksuns{font-family: 'Work Sans', sans-serif;}
-
 div#waku
 {
   width: 42rem;
@@ -33,7 +32,7 @@ div#waku
   margin-bottom: 1rem;
 }
 
-div#time, div#validity, div#correct-answer-rate
+div#time, div#validity, div#accuracy
 {
   text-align: center;
   font-size:1.5rem;
@@ -44,7 +43,6 @@ div#time, div#validity, div#correct-answer-rate
   text-align: center;
 }
 
-.charts{
-  float: left;
-  width:32%;
+#records{
+  margin: 1.5rem 0;
 }

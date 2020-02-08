@@ -6,9 +6,10 @@ let formattedAnswerRate;  //正答率
 let numOfQuestions=11;
 let numOfTry=1;
 let numOfTry_array = [];
-let gaming_time_history_array = [];
+let typing_speed_history = [];
 let validity_array = [];
-let correct_answer_rate = [];
+let accuracy = [];
+let tbody = $('<tbody>');
 
 //キー入力を受け取る関数
 function typeGame(evt)
@@ -68,9 +69,6 @@ function typeGame(evt)
   {
     //カウント処理を停止
     clearInterval(timer);
-    
-    //表示文作成
-    $("#time").html("お疲れさまでした(*'▽')");
 
     //誤答数の表示
     $("#validity").html("Number of Mistakes: ");
@@ -81,24 +79,30 @@ function typeGame(evt)
     //正答率の表示
     var answerRate = ((numOfQuestions-mistype)/numOfQuestions)*100
     formattedAnswerRate = floatFormat(answerRate,2);
-    $("#correct-answer-rate").html("Correct answer rate (%) : " + formattedAnswerRate); 
+    $("#accuracy").html("Accuracy (%) : " + formattedAnswerRate); 
 
     //タイプ時間を表示
     recordTypingSpeed();
 
     // Chart.js 用に value を保存
     let gaming_time = $('#gaming-time').text();
-    gaming_time_history_array.push(gaming_time);
+    typing_speed_history.push(gaming_time);
     validity_array.push(mistype);
-    correct_answer_rate.push(formattedAnswerRate);
+    accuracy.push(formattedAnswerRate);
 
-      // HTML への記録の書き込み　→ 表に変えること
-    let showHistory = $('<div>');
-    showHistory.html(gaming_time + ", " + mistype + ", " + formattedAnswerRate);
-    $("#show-history").append(showHistory);
-
+    // Draw Charts for results
     drawChart();
-    
+
+    // Making a table to show results
+    // 1st time to show the table
+    if (numOfTry <= 2) {
+      drawTable();
+    } 
+    else  // after the table come up 
+    {
+      let tr = draw_Tr();
+      tbody.append(tr);
+    }
   }
 
   //タイプ時間を表示
@@ -158,4 +162,55 @@ function drawChart(){
   });
 
   numOfTry++;
+}
+
+function drawTable() {
+  let div = $('<div>').addClass('mdl-data-table mdl-js-data-table mdl-shadow--2dp');
+
+  //Append thead to table
+  let thead = drawThead();
+  // Append thead to table
+  let table = $('<table>');
+  table.append(thead);
+
+  // get <tr> part that contains user's result
+  let tr = draw_Tr();
+  // Append <tr> to <tbody>
+  tbody.append(tr);
+  // Append tbody to table
+  table.append(tbody);
+  div.append(table);
+  $('#table-result').append(div);
+}
+
+function drawThead(){
+  let title_table = ["Typing Speed", "Mistyped", "Accuracy"];
+  // Making head part of a table that shows result
+  let tr = $('<tr>');
+  
+  // Put each title for the table 
+  for (let i = 0; i < title_table.length; i++) {
+    let th = $('<th>').html(title_table[i]);
+    tr.append(th);
+  }
+
+  let thead = $('<thead>').append(tr);
+  return thead;
+}
+
+function draw_Tr(){
+  // Making body part of a table that shows result
+  let tr = $('<tr>');
+
+  // Put each value for each category
+  // the reason I used [numOfTry-2] is because I added +1 to numOfTry at function drawChart() 
+  let td_typing_speed = $('<td>').html(typing_speed_history[numOfTry-2]);
+  let td_mistyped = $('<td>').html(validity_array[numOfTry-2]);
+  let td_accuracy = $('<td>').html(accuracy[numOfTry-2]);
+
+  tr.append(td_typing_speed);
+  tr.append(td_mistyped);
+  tr.append(td_accuracy);
+
+  return tr;
 }

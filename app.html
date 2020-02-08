@@ -53,21 +53,22 @@
         <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="button" value="Again" id="again"><br>
       </form>
 
-      <div>
+      <div id="records">
         <div id="time"></div>
         <div id="validity"></div>
-        <div id="correct-answer-rate"></div>
+        <div id="accuracy"></div>
       </div>
-
-      <div id="show-history"></div>
       
-      <div>
-        <div class="charts">
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--4-col">
           <canvas class="chart-size" id="chart-1"></canvas>
         </div>
 
-        <div class="charts">
+        <div class="mdl-cell mdl-cell--4-col">
           <canvas class="chart-size" id="chart-2"></canvas>
+        </div>
+        
+        <div class="mdl-cell mdl-cell--4-col" id="table-result">
         </div>
       </div>
 
