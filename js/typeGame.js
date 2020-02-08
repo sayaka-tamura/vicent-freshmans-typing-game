@@ -44,7 +44,7 @@ function typeGame(evt)
       var countup = function(){
         count++;
         //表示文作成
-        var displayTime = "Time elapsed：" + count + " Sec";
+        var displayTime = "Time elapsed: " + count + " Sec";
         $("#time").html(displayTime);
       } 
       //処理を1000ミリ秒(1秒)ごと繰り返す
@@ -116,7 +116,7 @@ function typeGame(evt)
     var msec = keika % 1000;
     
     let gamingTimeTitle = $('<div>', { id: 'gaming-time-title' });
-    gamingTimeTitle.html("Time (Sec)：");
+    gamingTimeTitle.html("Time (Sec): ");
 
     let gamingTime = $('<span>', { id: 'gaming-time' });
     gamingTime.html(sec + "." + msec);
